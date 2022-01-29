@@ -1,25 +1,48 @@
-import logo from './logo.svg';
 import './App.css';
+import {useEffect, useState} from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    let data={'title':"Waiting For Data"};
+    let [conData,setConData]=useState(data);
+
+    useEffect(async () => {
+        const url = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+        const fetchedData =await url.json();
+        console.log(fetchedData);
+        setConData(fetchedData);
+    },[6]);
+    // async function getData() {
+    //     console.log("getData Function");
+    //     const url = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+    //     console.log("getData Function");
+    //     console.log(url);
+    //     const data = url.json();
+    //     console.log(data);
+    // }
+    // getData();
+    
+    // async function postData() {
+    //     const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+    //         method: "POST",
+    //         body: JSON.stringify({
+    //             title: 'My Info',
+    //             body: 'DATAAA',
+    //             userId: 4
+    //         }),
+    //         headers: {
+    //             "Content-type": "application/json; charset=UTF-8"
+    //         }
+    //     });
+    //     console.log(response);
+    //     const data= await response.json();
+    //     console.log(data);
+    // }
+    // postData();
+    return (
+        <div className="App">
+            <h3>Title is {conData.title}</h3>
+        </div>
+    );
 }
 
 export default App;
